@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="true" default-lazy="false">
+	<class name="com.demo.data.Student"
+		table="STUDENT">
+		<id name="studentID" column="STUDENT_ID">
+			<generator class="identity" />
+		</id>
+		<property name="firstName" column="FIRST_NAME" />
+		<property name="middleName" column="MIDDLE_NAME" />
+		<property name="lastName" column="LAST_NAME" />			
+	</class>	
+</hibernate-mapping>
