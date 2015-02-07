@@ -36,7 +36,7 @@ public class StudentWebService {
 	/**
 	 * This method returns a student based on student ID.
 	 * 
-	 * @param studentID ID of an student.
+	 * @param studentID of a student.
 	 * @return a <code>Student</code> object.
 	 */
 	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
@@ -46,11 +46,41 @@ public class StudentWebService {
 	/**
 	 * This method returns a student based on student ID.
 	 * 
-	 * @param studentID ID of an student.
+	 * @param studentID ID of a student.
 	 * @return a <code>Student</code> object.
 	 */
 	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public Collection<Student> getStudentByName(String studentName) {
 		return this.studentService.getStudent(studentName);
+	}
+	/**
+	 * This method adds a student to database.
+	 * 
+	 * @param student object of student.
+	 * @return a <code>Student</code> object.
+	 */
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public String addStudent(Student student) {
+		return this.studentService.addStudent(student);
+	}
+	/**
+	 * This method updates a student.
+	 * 
+	 * @param student object of student.
+	 * @return a <code>Student</code> object.
+	 */
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public String updateStudent(Student student) {
+		return this.studentService.updateStudent(student);
+	}
+	/**
+	 * This method deletes a student.
+	 * 
+	 * @param student object of student.
+	 * @return a <code>Student</code> object.
+	 */
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public String deleteStudent(Student student) {
+		return this.studentService.deleteStudent(student);
 	}
 }

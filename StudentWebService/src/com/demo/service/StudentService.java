@@ -39,6 +39,7 @@ public class StudentService {
 	 */
 	public Student getStudent(Long studentID) {
 		return this.studentDAO.getStudent(studentID);		
+		//return this.studentDAO.getUniqueStudent(studentID);
 	}
 	/**
 	 * This method returns a student based on the input student Name.
@@ -47,6 +48,33 @@ public class StudentService {
 	 * @return a <code>Student</code> object.
 	 */
 	public Collection<Student> getStudent(String studentName) {
-		return this.studentDAO.getStudent(studentName);		
+		return this.studentDAO.getStudent(studentName);				
 	}	
+	/**
+	 * This method adds a student database.
+	 * 
+	 * @param Student of a student.
+	 * @return a <code>status</code> of operation.
+	 */
+	public String addStudent(Student student) {
+		return this.studentDAO.addStudent(student);		
+	}
+	/**
+	 * This method deletes a student from database.
+	 * 
+	 * @param Student of a student.
+	 * @return a <code>status</code> of operation.
+	 */
+	public String deleteStudent(Student student) {
+		return this.studentDAO.deleteStudent(student);		
+	}
+	/**
+	 * This method deletes a student from database.
+	 * 
+	 * @param Student of a student.
+	 * @return a <code>status</code> of operation.
+	 */
+	public String updateStudent(Student student) {
+		return this.studentDAO.updateStudent(student);		
+	}
 }

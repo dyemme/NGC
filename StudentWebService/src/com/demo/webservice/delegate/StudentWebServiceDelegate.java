@@ -61,4 +61,52 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 			throw new WebServiceException(ex);
 		}			
 	}
+	/**
+	 * This method adds a student to database.
+	 * 
+	 * @param student Object of a student.
+	 * @return a <code>Status</code> of operation.
+	 */
+	@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
+	public String addStudent(
+		@WebParam(name="student", targetNamespace="http://service.student.demo.com/")final Student student) throws WebServiceException {
+		try{
+			return this.studentWebService.addStudent(student);
+		}
+		catch(Exception ex) {
+			throw new WebServiceException(ex);
+		}			
+	}
+	/**
+	 * This method updates a student.
+	 * 
+	 * @param student Object of a student.
+	 * @return a <code>Status</code> of operation.
+	 */
+	@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
+	public String updateStudent(
+		@WebParam(name="student", targetNamespace="http://service.student.demo.com/")final Student student) throws WebServiceException {
+		try{
+			return this.studentWebService.updateStudent(student);
+		}
+		catch(Exception ex) {
+			throw new WebServiceException(ex);
+		}
+	}
+		/**
+		 * This method deletes a student from database.
+		 * 
+		 * @param student Object of a student.
+		 * @return a <code>Status</code> of operation.
+		 */
+		@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
+		public String deleteStudent(
+			@WebParam(name="student", targetNamespace="http://service.student.demo.com/")final Student student) throws WebServiceException {
+			try{
+				return this.studentWebService.deleteStudent(student);
+			}
+			catch(Exception ex) {
+				throw new WebServiceException(ex);
+			}		
+	}
 }

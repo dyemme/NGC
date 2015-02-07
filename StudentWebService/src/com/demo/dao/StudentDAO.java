@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,8 @@ public class StudentDAO{
 	 * Default constructor.
 	 */
 	public StudentDAO() {
-		;
+		//super(Student.class);
+		//this.sessionFactory = sessionFactory;
 	}	
 	public static Connection getConnection(){
 		
@@ -45,6 +47,21 @@ public class StudentDAO{
 		}
 		return connection;
 	}
+	/**
+	 * This method returns a student based on the input student ID.
+	 * 
+	 * @param studentID ID of a student.
+	 * @return a <code>Student</code> object.
+	 */
+	/**
+	public Student getUniqueStudent(Long studentID) {
+		return (Student) this.currentSession().createCriteria(Student.class)
+				.add(Restrictions.eq("student_id", studentID))
+				.setMaxResults(1)
+				.setCacheable(false)
+				.setReadOnly(true)
+				.uniqueResult();
+	}	**/
 	/**
 	 * This method returns a student based on the input student ID.
 	 * 
@@ -107,5 +124,79 @@ public class StudentDAO{
 		}
 		return students;
 	}	
-
+	/**
+	 * This method adds a student to database.
+	 * 
+	 * @param Student of a student.
+	 * @return a <code>String</code> message.
+	 */
+	public String addStudent(Student student) {
+		String status = "Failed";
+		Statement stmt = null;
+		ResultSet rs = null;
+		if (student == null)  { return null; }
+		try{
+			stmt = getConnection().createStatement();
+			int result = stmt.executeUpdate("INSERT INTO student (first_name, last_name, middle_name) values ('"+student.getFirstName()+"','"+student.getLastName()+"','"+student.getMiddleName()+"')");
+			if(result==1) status = "Success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e);
+		} finally {			try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+			
+		}
+		return status;
+	}
+	/**
+	 * This method delete a student from database.
+	 * 
+	 * @param Student of a student.
+	 * @return a <code>String</code> message.
+	 */
+	public String deleteStudent(Student student) {
+		String status = "Failed";
+		Statement stmt = null;
+		ResultSet rs = null;
+		if (student == null)  { return null; }
+		try{
+			stmt = getConnection().createStatement();
+			int result = stmt.executeUpdate("DELETE FROM student where student_id = "+student.getStudentID());
+			if(result==1) status = "Success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e);
+		} finally {			try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+			
+		}
+		return status;
+	}
+	/**
+	 * This method updates a student.
+	 * 
+	 * @param Student of a student.
+	 * @return a <code>String</code> message.
+	 */
+	public String updateStudent(Student student) {
+		String status = "Failed";
+		Statement stmt = null;
+		ResultSet rs = null;
+		if (student == null)  { return null; }
+		try{
+			stmt = getConnection().createStatement();
+			int result = stmt.executeUpdate("update student set first_name = '"+student.getFirstName()+"' , last_name = '"+student.getLastName()+"',middle_name = '"+student.getMiddleName()+"' where student_id = "+student.getStudentID());
+			if(result==1) status = "Success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e);
+		} finally {			try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+			
+		}
+		return status;
+	}
 }
