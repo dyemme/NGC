@@ -41,6 +41,7 @@ public class StudentWebService {
 	 */
 	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public Student getStudent(Long studentID) {
+		System.out.println("Student Id:"+studentID);
 		return this.studentService.getStudent(studentID);
 	}
 	/**
@@ -51,6 +52,7 @@ public class StudentWebService {
 	 */
 	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
 	public Collection<Student> getStudentByName(String studentName) {
+		System.out.println("Student Name:"+studentName);
 		return this.studentService.getStudent(studentName);
 	}
 	/**
@@ -61,6 +63,7 @@ public class StudentWebService {
 	 */
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public String addStudent(Student student) {
+		System.out.println(student.getFirstName()+student.getLastName()+student.getMiddleName());
 		return this.studentService.addStudent(student);
 	}
 	/**
@@ -80,7 +83,7 @@ public class StudentWebService {
 	 * @return a <code>Student</code> object.
 	 */
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
-	public String deleteStudent(Student student) {
-		return this.studentService.deleteStudent(student);
+	public String deleteStudent(Long studentID) {
+		return this.studentService.deleteStudent(studentID);
 	}
 }

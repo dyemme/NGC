@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,7 +104,7 @@ public class StudentDAO{
 		if (studentName == null)  { return null; }
 		try{
 			stmt = getConnection().createStatement();
-			rs = stmt.executeQuery("SELECT * FROM student where first_name like '"+studentName+"%' or last_name like '"+studentName+"%'");
+			rs = stmt.executeQuery("SELECT * FROM student where first_name ilike '"+studentName+"%' or last_name ilike '"+studentName+"%'");
 			while (rs.next()) {
 				Student student = new Student();
 				student.setStudentID(Long.parseLong(rs.getString("student_id")));
@@ -155,14 +154,14 @@ public class StudentDAO{
 	 * @param Student of a student.
 	 * @return a <code>String</code> message.
 	 */
-	public String deleteStudent(Student student) {
+	public String deleteStudent(Long studentID) {
 		String status = "Failed";
 		Statement stmt = null;
 		ResultSet rs = null;
-		if (student == null)  { return null; }
+		if (studentID == null)  { return null; }
 		try{
 			stmt = getConnection().createStatement();
-			int result = stmt.executeUpdate("DELETE FROM student where student_id = "+student.getStudentID());
+			int result = stmt.executeUpdate("DELETE FROM student where student_id = "+studentID);
 			if(result==1) status = "Success";
 		} catch (Exception e) {
 			e.printStackTrace();

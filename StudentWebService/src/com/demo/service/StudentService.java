@@ -65,8 +65,8 @@ public class StudentService {
 	 * @param Student of a student.
 	 * @return a <code>status</code> of operation.
 	 */
-	public String deleteStudent(Student student) {
-		return this.studentDAO.deleteStudent(student);		
+	public String deleteStudent(Long studentID) {
+		return this.studentDAO.deleteStudent(studentID);		
 	}
 	/**
 	 * This method deletes a student from database.

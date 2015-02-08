@@ -1,3 +1,78 @@
+$(document).ready(function(){
+	;
+});
+function getByUserId(){        		
+	var url="http://localhost:9131/StudentWebService/StudentWebService"; 
+ 	var studentID = document.studentPortal.studentId.value;
+	 	var pl = new SOAPClientParameters();
+	 	pl.add("studentID", studentID);
+	SOAPClient.invoke(url, "getStudent", pl, true, getStudent_callBack);
+}
+function getStudent_callBack(student)
+{
+    if(student == null)
+        alert("No user found.\r\n\r\nEnter a userID and repeat search.");
+    else
+      {
+    	document.studentPortal.finalResult.value = JSON.stringify(student);      
+      }
+} 
+function getByUserName(){        		
+	var url="http://localhost:9131/StudentWebService/StudentWebService"; 
+ 	var studentName = document.studentPortal.studentName.value;
+	 	var pl = new SOAPClientParameters();
+	 	pl.add("studentName", studentName);
+	SOAPClient.invoke(url, "getStudentByName", pl, true, getStudentByName_callBack);
+}
+function getStudentByName_callBack(students)
+{	
+	console.log(students);					   
+    if(students == null)
+        alert("No user found.\r\n\r\nEnter a username and repeat search.");
+    else
+      {
+      	document.studentPortal.finalResult.value = JSON.stringify(students);
+      }
+}
+function deleteByUserId(){        		
+	var url="http://localhost:9131/StudentWebService/StudentWebService"; 
+ 	var studentID = document.studentPortal.studentId.value;
+	 	var pl = new SOAPClientParameters();	 	
+	 	pl.add("studentID", studentID);
+	SOAPClient.invoke(url, "deleteStudent", pl, true, deleteStudent_callBack);
+}
+function deleteStudent_callBack(result)
+{
+    if(result == null)
+        alert("No user found.\r\n\r\nEnter a userID and repeat search.");
+    else
+      {
+    	document.studentPortal.finalResult.value = JSON.stringify(result);      
+      }
+} 
+function addStudent(){        		
+	var url="http://localhost:9131/StudentWebService/StudentWebService"; 
+ 	var firstName = document.studentPortal.firstName.value;
+ 	var lastName = document.studentPortal.lastName.value;
+ 	var middleName = document.studentPortal.middleName.value;
+ 	alert(firstName+middleName+lastName);
+	 	var pl = new SOAPClientParameters();
+	 	var Student = {"studentId":"", "firstName":firstName , "lastName":lastName, "middleName":middleName  };
+	 	pl.add("student", Student);
+	SOAPClient.invoke(url, "addStudent", pl, true, addStudent_callBack);
+}
+function addStudent_callBack(result)
+{
+    if(result == null)
+        alert("No user found.\r\n\r\nEnter a userID and repeat search.");
+    else
+      {
+    	document.studentPortal.finalResult.value = JSON.stringify(result);      
+      }
+} 
+
+
+
 function soap() {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('POST', 'https://somesoapurl.com/', true);

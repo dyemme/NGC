@@ -2,6 +2,7 @@ package com.demo.webservice.delegate;
 
 import java.util.Collection;
 
+import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
@@ -35,7 +36,8 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 	 * @param studentID of a student.
 	 * @return a <code>Student</code> object.
 	 */
-	@WebResult(name="student", targetNamespace="http://service.student.demo.com/")
+	@WebResult(name="student")
+	@WebMethod( action="getStudent")
 	public Student getStudent(
 		@WebParam(name="studentID", targetNamespace="http://service.student.demo.com/")final Long studentID) throws WebServiceException {
 		try{
@@ -51,10 +53,12 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 	 * @param studentID of a student.
 	 * @return a <code>Student</code> object.
 	 */
-	@WebResult(name="students", targetNamespace="http://service.student.demo.com/")
+	//@WebResult(name="students")
+	@WebResult(targetNamespace="http://service.student.demo.com/types",name="students")
+	@WebMethod( action="getStudentByName")
 	public Collection<Student> getStudentByName(
 		@WebParam(name="studentName", targetNamespace="http://service.student.demo.com/")final String studentName) throws WebServiceException {
-		try{
+		try{			
 			return this.studentWebService.getStudentByName(studentName);
 		}
 		catch(Exception ex) {
@@ -101,9 +105,9 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 		 */
 		@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
 		public String deleteStudent(
-			@WebParam(name="student", targetNamespace="http://service.student.demo.com/")final Student student) throws WebServiceException {
+			@WebParam(name="studentID", targetNamespace="http://service.student.demo.com/")final Long studentID) throws WebServiceException {
 			try{
-				return this.studentWebService.deleteStudent(student);
+				return this.studentWebService.deleteStudent(studentID);
 			}
 			catch(Exception ex) {
 				throw new WebServiceException(ex);
