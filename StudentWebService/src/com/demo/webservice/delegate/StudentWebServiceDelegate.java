@@ -54,7 +54,7 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 	 * @return a <code>Student</code> object.
 	 */
 	//@WebResult(name="students")
-	@WebResult(targetNamespace="http://service.student.demo.com/types",name="students")
+	@WebResult(name="students")
 	@WebMethod( action="getStudentByName")
 	public Collection<Student> getStudentByName(
 		@WebParam(name="studentName", targetNamespace="http://service.student.demo.com/")final String studentName) throws WebServiceException {
@@ -64,17 +64,25 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 		catch(Exception ex) {
 			throw new WebServiceException(ex);
 		}			
-	}
+	}	
 	/**
 	 * This method adds a student to database.
 	 * 
 	 * @param student Object of a student.
 	 * @return a <code>Status</code> of operation.
 	 */
-	@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
-	public String addStudent(
-		@WebParam(name="student", targetNamespace="http://service.student.demo.com/")final Student student) throws WebServiceException {
+	@WebResult(name="result")
+	@WebMethod( action="addStudentToDB")
+	public String addStudentToDB(
+		@WebParam(name="studentFName", targetNamespace="http://service.student.demo.com/")final String studentFName,
+		@WebParam(name="studentLName", targetNamespace="http://service.student.demo.com/")final String studentLName,
+		@WebParam(name="studentMName", targetNamespace="http://service.student.demo.com/")final String studentMName
+		) throws WebServiceException {
 		try{
+			Student student = new Student();
+			student.setFirstName(studentFName);
+			student.setLastName(studentLName);
+			student.setMiddleName(studentMName);
 			return this.studentWebService.addStudent(student);
 		}
 		catch(Exception ex) {
@@ -87,10 +95,20 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 	 * @param student Object of a student.
 	 * @return a <code>Status</code> of operation.
 	 */
-	@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
+	@WebResult(name="result")
+	@WebMethod( action="updateStudent")
 	public String updateStudent(
-		@WebParam(name="student", targetNamespace="http://service.student.demo.com/")final Student student) throws WebServiceException {
+			@WebParam(name="studentFName", targetNamespace="http://service.student.demo.com/")final String studentFName,
+			@WebParam(name="studentLName", targetNamespace="http://service.student.demo.com/")final String studentLName,
+			@WebParam(name="studentMName", targetNamespace="http://service.student.demo.com/")final String studentMName,
+			@WebParam(name="studentID", targetNamespace="http://service.student.demo.com/")final Long studentID
+			) throws WebServiceException {
 		try{
+			Student student = new Student();
+			student.setFirstName(studentFName);
+			student.setLastName(studentLName);
+			student.setMiddleName(studentMName);
+			student.setStudentID(studentID);
 			return this.studentWebService.updateStudent(student);
 		}
 		catch(Exception ex) {
@@ -103,7 +121,8 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 		 * @param student Object of a student.
 		 * @return a <code>Status</code> of operation.
 		 */
-		@WebResult(name="result", targetNamespace="http://service.student.demo.com/")
+		@WebResult(name="result")
+		@WebMethod( action="deleteStudent")
 		public String deleteStudent(
 			@WebParam(name="studentID", targetNamespace="http://service.student.demo.com/")final Long studentID) throws WebServiceException {
 			try{
