@@ -137,7 +137,7 @@ public class StudentDAO{
 		try{
 			stmt = getConnection().createStatement();
 			int result = stmt.executeUpdate("INSERT INTO student (first_name, last_name, middle_name) values ('"+student.getFirstName()+"','"+student.getLastName()+"','"+student.getMiddleName()+"')");
-			if(result==1) status = "Success";
+			if(result==1) status = "Student added successfully!";
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(e);
@@ -162,7 +162,7 @@ public class StudentDAO{
 		try{
 			stmt = getConnection().createStatement();
 			int result = stmt.executeUpdate("DELETE FROM student where student_id = "+studentID);
-			if(result==1) status = "Success";
+			if(result==1) status = "Student deleted successfully";
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(e);
@@ -187,7 +187,7 @@ public class StudentDAO{
 		try{
 			stmt = getConnection().createStatement();
 			int result = stmt.executeUpdate("update student set first_name = '"+student.getFirstName()+"' , last_name = '"+student.getLastName()+"',middle_name = '"+student.getMiddleName()+"' where student_id = "+student.getStudentID());
-			if(result==1) status = "Success";
+			if(result==1) status = "Student updated successfully";
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.debug(e);
