@@ -38,8 +38,7 @@ public class StudentService {
 	 * @return a <code>Student</code> object.
 	 */
 	public Student getStudent(Long studentID) {
-		return this.studentDAO.getStudent(studentID);		
-		//return this.studentDAO.getUniqueStudent(studentID);
+		return this.studentDAO.getStudent(studentID);			
 	}
 	/**
 	 * This method returns a student based on the input student Name.

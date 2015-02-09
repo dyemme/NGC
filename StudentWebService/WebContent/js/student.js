@@ -4,8 +4,16 @@ $(document).ready(function(){
 	;
 });
 function soapGetStudentByName(){
-	document.studentPortal.finalResult.value = "";
+	document.getElementById("finalResult").value="";	
 	var studentName = document.studentPortal.studentName.value;	
+	// clear student list
+	while(document.studentPortal.studentList.options.length > 0){
+		document.studentPortal.studentList.remove(0);
+	}
+	var o = document.createElement("OPTION");
+	document.studentPortal.studentList.options.add(o);
+    o.value = 0;
+    o.innerHTML = "--Please select student--";
 $.soap({
     url: urlParam,
     method: 'getStudentByName',       
@@ -16,9 +24,13 @@ $.soap({
     	var responseXml = soapResponse.toString();
     	$(responseXml)
         .find('students')
-        .each(function(){	            
-           var temp = [$(this).find('firstName').text(),$(this).find('lastName').text(),$(this).find('middleName').text(),$(this).find('studentID').text()];
-           document.studentPortal.finalResult.value += temp +'\n';     
+        .each(function(){
+        	var temp = [$(this).find('studentID').text()+": "+$(this).find('firstName').text()+" "+$(this).find('middleName').text()+" "+$(this).find('lastName').text()];
+        	var o = document.createElement("OPTION");
+        	document.studentPortal.studentList.options.add(o);
+            o.value = $(this).find('studentID').text();
+            o.innerHTML = temp;
+             
         });    	
     },
     namespaceURL: namespaceURLParam,
@@ -26,11 +38,38 @@ $.soap({
         // show error
     }
 });
-
 }
-
+function soapGetByUserValue(valueIn){       
+	document.getElementById("finalResult").value="";		
+	$.soap({
+	    url: urlParam,
+	    method: 'getStudent',       
+	    data: {
+	        studentID: valueIn        
+	    },    
+	    success: function (soapResponse) {	       
+	    	var responseXml = soapResponse.toString();
+	    	$(responseXml)
+	        .find('Student')
+	        .each(function(){	            
+	            document.studentPortal.firstName.value =$(this).find('firstName').text();
+	         	document.studentPortal.lastName.value = $(this).find('lastName').text();
+	         	document.studentPortal.middleName.value = $(this).find('middleName').text();
+	         	document.studentPortal.studentID.value = $(this).find('studentID').text();
+	        });
+	    },
+	    namespaceURL: namespaceURLParam,
+	    error: function (SOAPResponse) {
+	        // show error
+	    }
+	});
+}
+function selectStudent(sel){
+	var value = sel.value;	
+	soapGetByUserValue(value)
+}
 function soapGetByUserId(){       
-	document.studentPortal.finalResult.value = "";
+	document.getElementById("finalResult").value="";	
 	var studentIDParam = document.studentPortal.studentId.value;
 	$.soap({
 	    url: urlParam,
@@ -56,8 +95,8 @@ function soapGetByUserId(){
 	});
 }
 function soapDeleteByUserId(){        			
-	document.studentPortal.finalResult.value = "";
- 	var studentIDParam = document.studentPortal.studentId.value;
+	document.getElementById("finalResult").value="";	
+ 	var studentIDParam = document.studentPortal.studentID.value;
  	$.soap({
 	    url: urlParam,
 	    method: 'deleteStudent',       
@@ -69,7 +108,7 @@ function soapDeleteByUserId(){
 	    	// document.studentPortal.finalResult.value = responseXml;
 	    	$(responseXml)        
 	        .each(function(){	            
-	        	document.studentPortal.finalResult.value =$(this).find('result').text();	         	
+	        	document.getElementById("finalResult").value =$(this).find('result').text();	         	
 	        });
 	    },
 	    namespaceURL: namespaceURLParam,
@@ -79,10 +118,10 @@ function soapDeleteByUserId(){
 	});
 }
 function addSoapStudent(){
-	document.studentPortal.finalResult.value = "";
-	var firstNameParam = document.studentPortal.firstName.value;
- 	var lastNameParam = document.studentPortal.lastName.value;
- 	var middleNameParam = document.studentPortal.middleName.value; 	
+	document.getElementById("finalResult").value="";	
+	var firstNameParam = document.studentPortalAdd.firstName.value;
+ 	var lastNameParam = document.studentPortalAdd.lastName.value;
+ 	var middleNameParam = document.studentPortalAdd.middleName.value; 	
 $.soap({
     url: urlParam,
     method: 'addStudentToDB',       
@@ -94,7 +133,7 @@ $.soap({
     	// document.studentPortal.finalResult.value = responseXml;
     	$(responseXml)        
         .each(function(){	            
-        	document.studentPortal.finalResult.value =$(this).find('result').text();	         	
+        	document.getElementById("finalResult").value =$(this).find('result').text();	         	
         });
     },
     namespaceURL: namespaceURLParam,
@@ -104,7 +143,7 @@ $.soap({
 });
 }
 function updateStudent(){
-	document.studentPortal.finalResult.value = "";
+	document.getElementById("finalResult").value="";	
 	var firstNameParam = document.studentPortal.firstName.value;
  	var lastNameParam = document.studentPortal.lastName.value;
  	var middleNameParam = document.studentPortal.middleName.value; 
@@ -120,7 +159,7 @@ $.soap({
     	// document.studentPortal.finalResult.value = responseXml;
     	$(responseXml)        
         .each(function(){	            
-        	document.studentPortal.finalResult.value =$(this).find('result').text();	         	
+        	document.getElementById("finalResult").value =$(this).find('result').text();	         	
         });
     },
     namespaceURL: namespaceURLParam,

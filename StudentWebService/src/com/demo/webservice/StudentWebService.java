@@ -40,19 +40,17 @@ public class StudentWebService {
 	 * @return a <code>Student</code> object.
 	 */
 	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
-	public Student getStudent(Long studentID) {
-		System.out.println("Student Id:"+studentID);
+	public Student getStudent(Long studentID) {		
 		return this.studentService.getStudent(studentID);
 	}
 	/**
-	 * This method returns a student based on student ID.
+	 * This method returns a students based on student name.
 	 * 
 	 * @param studentID ID of a student.
-	 * @return a <code>Student</code> object.
+	 * @return a <Collection>Student</Collection> object.
 	 */
 	@Transactional(readOnly=true, propagation=Propagation.REQUIRED)
-	public Collection<Student> getStudentByName(String studentName) {
-		System.out.println("Student Name:"+studentName);
+	public Collection<Student> getStudentByName(String studentName) {		
 		return this.studentService.getStudent(studentName);
 	}
 	/**
@@ -63,7 +61,6 @@ public class StudentWebService {
 	 */
 	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public String addStudent(Student student) {
-		System.out.println(student.getFirstName()+student.getLastName()+student.getMiddleName());
 		return this.studentService.addStudent(student);
 	}
 	/**

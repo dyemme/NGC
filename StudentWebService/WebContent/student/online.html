@@ -4,33 +4,46 @@
 <meta charset="ISO-8859-1">
 <title>Student Portal</title>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
-<!--<script type="text/javascript" src="../js/json2.js"></script> -->
-<!--<script type="text/javascript" src="../js/soapproxy.js"></script> -->
-<!--<script type="text/javascript" src="../js/xmlformatter.js"></script> -->
 <script type="text/javascript" src="../js/student.js"></script> 
-<!-- <script type="text/javascript" src="../js/soapclient.js"></script> -->
+<style type="text/css" src="../css/student.css"></style>
 <script type="text/javascript" src="../js/jquery.soap.js"></script>
 </head>
 <body>
 <h3>Welcome to Student Portal</h3>
 <form name="studentPortal">
-<input type="text" name="studentName">
-<button type="button" onClick="soapGetStudentByName()">Get Student by Name</button>
-<br><br><input type="text" name="studentId">
+Name:<input type="text" id="studentName" name="studentName">
+<button type="button" onchange="soapGetStudentByName()" onClick="soapGetStudentByName()">Students-></button>
+<select id="studentList" name="studentList" onchange=selectStudent(this)>  
+</select>
+<br><br>ID:<input type="text" name="studentId">
 <button type="button" onClick="soapGetByUserId()">Get Student by ID</button>&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="button" onClick="soapDeleteByUserId()">Delete Student by ID</button>
 <br><br>
-<textarea name="finalResult"  rows = "6" cols= "50"></textarea>
-<br><br>
-<table>
-<tr><td colspan="2"><b>Add new student</b></td></tr>
+<table class="stTable">
+<tr><td colspan="2"><b>View/Edit Student</b></td></tr>
 <tr><td>First Name:</td><td><input type="text" name="firstName"/></td></tr>
 <tr><td>Middle Name:</td><td><input type="text" name="middleName"/></td></tr>
 <tr><td>last Name:</td><td><input type="text" name="lastName"/></td></tr>
 <tr><td>Student ID:</td><td><input type="text" name="studentID"/></td></tr>
 </table>
-<button type="button" onClick="addSoapStudent()">Add Student</button>
 <button type="button" onClick="updateStudent()">Update Student</button>
+<button type="button" onClick="soapDeleteByUserId()">Delete Student</button>
+
+<br><br>
 </form>
+
+Message: <textarea id="finalResult" name="finalResult"  rows = "1" cols= "20"></textarea>
+<br>
+<div style="color:#0000FF">
+<form name="studentPortalAdd">
+<table class="stTable">
+<tr><td colspan="2"><b>Add new student</b></td></tr>
+<tr><td>First Name:</td><td><input type="text" name="firstName"/></td></tr>
+<tr><td>Middle Name:</td><td><input type="text" name="middleName"/></td></tr>
+<tr><td>last Name:</td><td><input type="text" name="lastName"/></td></tr>
+<tr><td colspan="2"><input type="hidden" name="studentID"/></td></tr>
+</table>
+<button type="button" onClick="addSoapStudent()">Add Student</button>
+</form>
+</div>
 </body>
 </html>
