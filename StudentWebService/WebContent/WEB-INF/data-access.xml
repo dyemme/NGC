@@ -15,10 +15,10 @@
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <property name="url" value="${jdbc.url}"></property>  
-        <property name="username" value="${jdbc.username}"></property>  
-        <property name="password" value="${jdbc.password}"></property>  
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/student"></property>  
+        <property name="username" value="postgres"></property>  
+        <property name="password" value="p"></property>  
     </bean>  
 
 <bean id="mysessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">  
@@ -34,8 +34,8 @@
      </props>  
     </property>
 
-</bean>  
-<bean id="studentDAO" class="com.demo.dao.StudentDAO">  
+</bean>   
+<bean id="student" class="com.demo.data.Student">  
     <property name="sessionFactory" ref="mysessionFactory"></property>  
 </bean>  
 

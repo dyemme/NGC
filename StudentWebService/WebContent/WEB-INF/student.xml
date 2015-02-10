@@ -24,8 +24,10 @@
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- (this dependency is defined somewhere else) -->
         <property name="dataSource" ref="dataSource"/>
-    </bean>
+    </bean>    
     <!-- Service Delegates -->
 	<bean id="StudentWebServiceDelegate" class="com.demo.webservice.delegate.StudentWebServiceDelegate"/>
+    <!-- Service Delegates -->
+	<bean id="StudentWebService" class="com.demo.webservice.StudentWebService"/>
     
 </beans>  	

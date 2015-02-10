@@ -35,21 +35,13 @@
 <table class="stTable">
 <tr><td align="right">First Name:</td><td><input type="text" name="firstName"/></td></tr>
 <tr><td align="right">Middle Name:</td><td><input type="text" name="middleName"/></td></tr>
-<tr><td align="right">last Name:</td><td><input type="text" name="lastName"/></td></tr>
+<tr><td align="right">Last Name:</td><td><input type="text" name="lastName"/></td></tr>
 <tr><td align="right">Student ID:</td><td><input type="text" name="studentID" readonly="readonly" class="stBlurredDefaultText"/></td></tr>
 <tr><td align="right"><img id="st_thmbUpActImg" class="stImg" onClick="updateStudent()" title="Update Student" src="../images/15_thumbsup_background.png" style="display:block;"></td>
 <td align="left"><img id="st_thmbUpActImg" class="stImg" onClick="soapDeleteByUserId()" title="Delete Student" src="../images/25_whiteX_background.png" style="display:block;"></td></tr> 
 </table>
 </fieldset>
 </form>
-<div id="st_errMsg" class="stErrMsg" style="display:none;">
-			<div class="stErrHdr"><span id="st_xErrMsg" class="stErrAct">X</span></div>
-			<div id="st_errBdy" class="stErrBdy"></div>		
-</div>
-<div id="st_scsMsg" class="stScsMsg" style="display:none;">
-			<div class="stScsHdr"><span id="st_xScsMsg" class="stScsAct">X</span></div>
-			<div id="st_scsBdy" class="stScsBdy"></div>		
-</div>
 <fieldset style="width:450px">
 <legend align="left">
 <span>Add Student</span>
@@ -59,7 +51,7 @@
 <table class="stTable">
 <tr><td align="right">First Name:</td><td><input type="text" name="firstName"/></td></tr>
 <tr><td align="right">Middle Name:</td><td><input type="text" name="middleName"/></td></tr>
-<tr><td  align="right">last Name:</td><td><input type="text" name="lastName"/></td></tr>
+<tr><td  align="right">Last Name:</td><td><input type="text" name="lastName"/></td></tr>
 <tr><td colspan="2"><input type="hidden" name="studentID"/></td></tr>
 <tr><td></td><td align="left"><img id="st_thmbUpActImg" class="stImg" onClick="addSoapStudent()" title="Add Student" src="../images/15_thumbsup_background.png" style="display:block;">
 </td></tr>
@@ -67,6 +59,14 @@
 </form>
 </div>
 </fieldset>
+</div>
+<div id="st_errMsg" class="stErrMsg" style="display:none;">
+			<div class="stErrHdr"><span id="st_xErrMsg" class="stErrAct">X</span></div>
+			<div id="st_errBdy" class="stErrBdy"></div>		
+</div>
+<div id="st_scsMsg" class="stScsMsg" style="display:none;">
+			<div class="stScsHdr"><span id="st_xScsMsg" class="stScsAct">X</span></div>
+			<div id="st_scsBdy" class="stScsBdy"></div>		
 </div>
 </body>
 </html>

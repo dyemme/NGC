@@ -83,4 +83,14 @@ public class StudentWebService {
 	public String deleteStudent(Long studentID) {
 		return this.studentService.deleteStudent(studentID);
 	}
+	/**
+	 * This method deletes a student.
+	 * 
+	 * @param student object of student.
+	 * @return a <Collection>Student</Collection> object.
+	 */
+	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
+	public Collection<Student> listStudents() {
+		return this.studentService.listStudents();
+	}
 }

@@ -76,4 +76,13 @@ public class StudentService {
 	public String updateStudent(Student student) {
 		return this.studentDAO.updateStudent(student);		
 	}
+	/**
+	 * This method deletes a student from database.
+	 * 
+	 * @param Student of a student.
+	 * @return a <Collection>Student</Collection> object.
+	 */
+	public Collection<Student> listStudents() {
+		return this.studentDAO.listStudents();		
+	}
 }

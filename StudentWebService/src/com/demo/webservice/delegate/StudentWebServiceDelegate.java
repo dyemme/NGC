@@ -132,4 +132,20 @@ public class StudentWebServiceDelegate extends SpringBeanAutowiringSupport {
 				throw new WebServiceException(ex);
 			}		
 	}
+		/**
+		 * This method deletes a student from database.
+		 * 
+		 * @param student Object of a student.
+		 * 
+		 */
+		@WebResult(name="students")
+		@WebMethod( action="listStudents")
+		public Collection<Student> listStudents() throws WebServiceException {
+			try{
+				return this.studentWebService.listStudents();
+			}
+			catch(Exception ex) {
+				throw new WebServiceException(ex);
+			}		
+	}
 }

@@ -7,6 +7,7 @@ $(document).ready(function(){
 	$("#st_xScsMsg").click(function(){
 		st_dismissScsMsg();
 	});	
+	document.getElementById('st_thmbUpActImg').click();
 });
 /**
  * Dismisses the error message.
@@ -32,6 +33,15 @@ function st_displayScsMsg(msg) {
 	$("#st_scsBdy").html(msg);
 	$("#st_scsMsg").css("display","block");
 }
+/**
+ * Displays processing error information.
+ *
+ * @param msg - a message describing the errors encountered
+ */
+function st_displayErrMsg(msg) {
+	$("#st_errBdy").html(msg);
+	$("#st_errMsg").css("display","block");
+}
 function resetFormFields(){
 	clearEditFormFields();
 	cleanAddFormfields();
@@ -50,6 +60,45 @@ function cleanAddFormfields(){
 	 document.studentPortalAdd.firstName.value="";
 	 document.studentPortalAdd.lastName.value="";
 	 document.studentPortalAdd.middleName.value="";
+}
+function validateStudentID(studentID){	
+	if(studentID.length>0){
+		if(isNaN(studentID))
+			return false;
+		else
+			return true;
+	}else return false;
+}
+function soapGetStudents(){
+	clearEditFormFields();	
+	// clear student list
+	while(document.studentPortal.studentList.options.length > 0){
+		document.studentPortal.studentList.remove(0);
+	}
+	var o = document.createElement("OPTION");
+	document.studentPortal.studentList.options.add(o);
+    o.value = 0;
+    o.innerHTML = "--Please select student--";
+$.soap({
+    url: urlParam,
+    method: 'listStudents',        
+    success: function (soapResponse) {       
+    	var responseXml = soapResponse.toString();
+    	$(responseXml)
+        .find('students')
+        .each(function(){
+        	var temp = [$(this).find('studentID').text()+": "+$(this).find('firstName').text()+" "+$(this).find('middleName').text()+" "+$(this).find('lastName').text()];
+        	var o = document.createElement("OPTION");
+        	document.studentPortal.studentList.options.add(o);
+            o.value = $(this).find('studentID').text();
+            o.innerHTML = temp;             
+        });    	
+    },    
+    namespaceURL: namespaceURLParam,
+    error: function (SOAPResponse) {
+        // show error
+    }
+});
 }
 function soapGetStudentByName(){
 	clearEditFormFields();
@@ -87,7 +136,7 @@ $.soap({
     }
 });
 }
-function soapGetByUserValue(valueIn){
+function soapGetByUserValue(valueIn){		
 	clearEditFormFields();
 	$.soap({
 	    url: urlParam,
@@ -116,9 +165,11 @@ function selectStudent(sel){
 	var value = sel.value;	
 	soapGetByUserValue(value)
 }
-function soapGetByUserId(){
+function soapGetByUserId(){	
 	clearEditFormFields();
 	var studentIDParam = document.studentPortal.studentId.value;
+	if(!(validateStudentID(studentIDParam)))
+		return;
 	$.soap({
 	    url: urlParam,
 	    method: 'getStudent',       

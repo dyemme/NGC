@@ -37,8 +37,7 @@ public class StudentDAO{
 		connection = null;		 
 		try {
  
-			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/student", "postgres",
-					"postgres");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/student", "postgres","postgres");
  
 		} catch (SQLException e) { 
 			System.out.println("Connection Failed! Check output console");
@@ -198,4 +197,33 @@ public class StudentDAO{
 		}
 		return status;
 	}
+	/**
+	 * 
+	 * @return a <Collection>Student</Collection> object.
+	 */
+	 public Collection<Student> listStudents() {
+		 Collection<Student> students = new ArrayList<Student>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+			stmt = getConnection().createStatement();
+			rs = stmt.executeQuery("SELECT * FROM student");
+			while (rs.next()) {
+				Student student = new Student();
+				student.setStudentID(Long.parseLong(rs.getString("student_id")));
+				student.setFirstName(rs.getString("first_name"));
+				student.setLastName(rs.getString("last_name"));
+				student.setMiddleName(rs.getString("middle_name"));	
+				students.add(student);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.debug(e);
+		} finally {			try { if (rs != null) rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { if (connection != null) connection.close(); } catch (SQLException e) { e.printStackTrace(); }
+			
+		}
+		return students;
+	 }   
 }
