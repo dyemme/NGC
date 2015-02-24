@@ -1,10 +1,10 @@
 # Author Damodar R Yemme (dyemme{at}gmail.com) for any help with setup or issues.
 # NGC
-Example to create SOAP Web Services and RESTFul services using Postgre SQL deploying on Tomcat or Liberty profile server.
-Student client project uses soapClient.js to interact with SOAP Service and RESTFul service.
+Example to create SOAP Web Services using Postgre SQL databse deployed on Tomcat or Liberty profile server.
+Student client project uses soapClient.js to interact with SOAP Service.
 Required Tools#
-Eclipse Luna 
-Postgres database
+Eclipse Luna,  
+Postgres database and 
 IBM Liberty profile server.
 
 #Database scripts for "Student" database
